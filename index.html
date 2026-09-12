@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michel Ismark Fleitas González | Backend Python Developer</title>
+
+    <!-- Fuente Instrument Sans (misma que usaste) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #2c7be5;
+            --info: #27bcfd;
+            --success: #00d27a;
+            --warning: #f5803e;
+            --danger: #e63757;
+            --dark: #0b1727;
+            --body: #5e6e82;
+            --secondary: #748194;
+            --border: #d8e2ef;
+            --bg: #edf2f9;
+            --light: #f9fafd;
+            --card: #fff;
+
+            --soft-primary-bg: #d5e5fa;
+            --soft-primary-fg: #1c4f93;
+            --soft-success-bg: #ccf6e4;
+            --soft-success-fg: #00864e;
+            --soft-warning-bg: #fde6d8;
+            --soft-warning-fg: #9d5228;
+            --soft-info-bg: #d4f2ff;
+            --soft-info-fg: #1978a2;
+            --soft-secondary-bg: #e3e6ea;
+            --soft-secondary-fg: #4d5969;
+
+            --font: "Instrument Sans", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+            --mono: "JetBrains Mono", ui-monospace, monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font);
+            color: var(--body);
+            background: var(--bg);
+            font-size: 15px;
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        /* ---------- HEADER ---------- */
+        .header {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 36px 40px;
+            box-shadow: 0 20px 50px rgba(11,23,39,.08), 0 2px 6px rgba(11,23,39,.05);
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--info));
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--dark);
+            letter-spacing: -.01em;
+            line-height: 1.15;
+        }
+
+        .header .role {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-top: 8px;
+        }
+
+        .header .sub {
+            font-size: 15px;
+            color: var(--body);
+            margin-top: 14px;
+            max-width: 720px;
+        }
+
+        .header .contact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .contact-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            background: var(--soft-primary-bg);
+            color: var(--soft-primary-fg);
+            transition: transform .15s ease;
+        }
+
+        .contact-chip:hover { transform: translateY(-1px); }
+
+        .contact-chip.success { background: var(--soft-success-bg); color: var(--soft-success-fg); }
+        .contact-chip.info    { background: var(--soft-info-bg);    color: var(--soft-info-fg); }
+        .contact-chip.secondary { background: var(--soft-secondary-bg); color: var(--soft-secondary-fg); }
+
+        /* ---------- SECTIONS ---------- */
+        .section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 40px 32px;
+            box-shadow: 0 20px 50px rgba(11,23,39,.06), 0 2px 6px rgba(11,23,39,.04);
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 22px;
+            border-radius: 3px;
+            background: var(--primary);
+        }
+
+        /* ---------- SKILLS ---------- */
+        .skills-group { margin-bottom: 16px; }
+        .skills-group:last-child { margin-bottom: 0; }
+
+        .skills-label {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: var(--secondary);
+            margin-bottom: 8px;
+        }
+
+        .skills-list { display: flex; flex-wrap: wrap; gap: 8px; }
+
+        .skill {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            background: var(--soft-primary-bg);
+            color: var(--soft-primary-fg);
+        }
+
+        .skill.success { background: var(--soft-success-bg); color: var(--soft-success-fg); }
+        .skill.warning { background: var(--soft-warning-bg); color: var(--soft-warning-fg); }
+        .skill.info    { background: var(--soft-info-bg);    color: var(--soft-info-fg); }
+        .skill.secondary { background: var(--soft-secondary-bg); color: var(--soft-secondary-fg); }
+
+        /* ---------- EXPERIENCE ---------- */
+        .job {
+            padding: 20px 0;
+            border-bottom: 1px dashed #e6ebf3;
+        }
+
+        .job:first-of-type { padding-top: 0; }
+        .job:last-of-type { border-bottom: none; padding-bottom: 0; }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .job-title {
+            font-size: 16.5px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .job-company {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-top: 2px;
+        }
+
+        .job-meta {
+            font-size: 13px;
+            color: var(--secondary);
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .job-period {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 6px;
+            background: var(--soft-secondary-bg);
+            color: var(--soft-secondary-fg);
+            font-weight: 600;
+            font-size: 12.5px;
+        }
+
+        .job-period.current {
+            background: var(--soft-success-bg);
+            color: var(--soft-success-fg);
+        }
+
+        .job ul {
+            list-style: none;
+            margin-top: 12px;
+        }
+
+        .job ul li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            font-size: 14.5px;
+            line-height: 1.5;
+        }
+
+        .job ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 9px;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--primary);
+        }
+
+        .job ul li strong {
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        /* ---------- EDUCATION / CERTS ---------- */
+        .edu-item {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 12px 0;
+            border-bottom: 1px dashed #e6ebf3;
+        }
+
+        .edu-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .edu-item:first-child { padding-top: 0; }
+
+        .edu-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .edu-sub {
+            font-size: 13.5px;
+            color: var(--body);
+            margin-top: 2px;
+        }
+
+        .edu-year {
+            font-size: 13px;
+            color: var(--secondary);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* ---------- FOOTER ---------- */
+        .footer {
+            text-align: center;
+            font-size: 13px;
+            color: var(--secondary);
+            padding: 16px 0 8px;
+        }
+
+        .footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+
+        /* ---------- RESPONSIVE ---------- */
+        @media (max-width: 640px) {
+            body { padding: 20px 12px; }
+            .header, .section { padding: 24px 22px; }
+            .header h1 { font-size: 26px; }
+            .job-meta { text-align: left; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- ================= HEADER ================= -->
+        <header class="header">
+            <h1>Michel Ismark Fleitas González</h1>
+            <div class="role">Backend Python Developer | Django & FastAPI | Web Scraping</div>
+            <p class="sub">
+                Desarrollador backend especializado en Python, con experiencia en la construcción de APIs
+                seguras y escalables, automatización de procesos y scraping web. Perfil híbrido con base
+                sólida en ciberseguridad y administración de redes, aportando valor en proyectos que
+                requieren rendimiento, seguridad y fiabilidad.
+            </p>
+            <div class="contact">
+                <a class="contact-chip">michelfleitas4@gmail.com</a>
+                <a class="contact-chip info" href="https://www.linkedin.com/in/michelfleitas" target="_blank">Linkedin</a>
+            </div>
+        </header>
+
+        <!-- ================= HABILIDADES ================= -->
+        <section class="section">
+            <h2 class="section-title">Habilidades técnicas</h2>
+
+            <div class="skills-group">
+                <div class="skills-label">Backend & APIs & Web Scraping</div>
+                <div class="skills-list">
+                    <span class="skill">Python</span>
+                    <span class="skill">Django</span>
+                    <span class="skill">FastAPI</span>
+                    <span class="skill">APIs REST</span>
+                    <span class="skill">JWT</span>
+                    <span class="skill">Pydantic</span>
+                    <span class="skill">Playwright</span>
+                    <span class="skill">Bash</span>
+                    <span class="skill">PostgreSQL</span>
+                    <span class="skill">MySQL</span>
+
+                </div>
+            </div>
+
+            <div class="skills-group">
+                <div class="skills-label">DevOps & Cloud</div>
+                <div class="skills-list">
+                    <span class="skill success">Docker</span>
+                    <span class="skill success">Docker Compose</span>
+                    <span class="skill success">Git</span>
+                    <span class="skill success">GitHub Actions</span>
+                    <span class="skill success">VMware</span>
+                    <span class="skill success">Linux</span>
+                </div>
+            </div>
+
+            <div class="skills-group">
+                <div class="skills-label">Ciberseguridad</div>
+                <div class="skills-list">
+                    <span class="skill warning">Pfsense</span>
+                    <span class="skill warning">OSSIM / Wazuh</span>
+                    <span class="skill warning">DLP</span>
+                    <span class="skill warning">Análisis forense</span>
+                    <span class="skill warning">OWASP</span>
+                    <span class="skill warning">Hardening</span>
+                </div>
+            </div>
+
+            <div class="skills-group">
+                <div class="skills-label">Monitorización & Redes</div>
+                <div class="skills-list">
+                    <span class="skill secondary">Zabbix</span>
+                    <span class="skill secondary">Grafana</span>
+                    <span class="skill secondary">Splunk</span>
+                    <span class="skill secondary">Cisco IOS</span>
+                    <span class="skill secondary">Huawei</span>
+                    <span class="skill secondary">Wireshark</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= EXPERIENCIA LABORAL ================= -->
+        <section class="section">
+            <h2 class="section-title">Experiencia laboral</h2>
+
+            <!-- ETECSA Dev -->
+            <div class="job">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Desarrollador Web</div>
+                        <div class="job-company">ETECSA · La Habana, Cuba</div>
+                    </div>
+                    <div class="job-meta">
+                        <span class="job-period current">03/2025 – Presente</span>
+                    </div>
+                </div>
+                <ul>
+                    <li>Desarrollo de aplicaciones web con <strong>Django</strong> y <strong>FastAPI</strong>, incluyendo módulos de scraping para extracción y normalización de datos.</li>
+                    <li>Optimización del rendimiento mediante <strong>caching (Redis)</strong>, consultas eficientes y escalado horizontal.</li>
+                    <li>Integración de <strong>APIs REST seguras (JWT)</strong> para comunicación entre servicios internos.</li>
+                    <li>Automatización de pipelines de extracción de datos con <strong>Scrapy</strong> y <strong>BeautifulSoup</strong>.</li>
+                    <li>Documentación técnica de APIs y mantenimiento de repositorios en <strong>Git</strong>.</li>
+                </ul>
+            </div>
+
+            <!-- ETECSA Soporte -->
+            <div class="job">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Especialista en Soporte para Sistemas TI</div>
+                        <div class="job-company">ETECSA · La Habana, Cuba</div>
+                    </div>
+                    <div class="job-meta">
+                        <span class="job-period">03/2023 – 02/2025</span>
+                    </div>
+                </div>
+                <ul>
+                    <li>Mantenimiento proactivo de equipos y redes, reduciendo los tiempos de inactividad</li>
+                    <li>Diagnóstico y resolución de averías en sistemas críticos (<strong>Windows/Linux</strong>).</li>
+                    <li>Desarrollo de <strong>scripts en Python y Bash</strong> para inventariado automatizado de equipos.</li>
+                    <li>Administración de servidores y servicios de red en entornos de alta disponibilidad.</li>
+                </ul>
+            </div>
+
+            <!-- ETECSA Ciberseguridad -->
+            <div class="job">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Especialista en Ciberseguridad</div>
+                        <div class="job-company">ETECSA · La Habana, Cuba</div>
+                    </div>
+                    <div class="job-meta">
+                        <span class="job-period">09/2019 – 02/2023</span>
+                    </div>
+                </div>
+                <ul>
+                    <li>Implementación de <strong>Firewalls (Pfsense)</strong>, <strong>SIEM (OSSIM, Wazuh)</strong> y herramientas <strong>DLP</strong>, reduciendo incidentes de seguridad.</li>
+                    <li>Auditorías periódicas de seguridad, identificando y corrigiendo vulnerabilidades críticas (<strong>OWASP Top 10</strong>).</li>
+                    <li>Desarrollo de <strong>plugins en Python</strong> para análisis forense y automatización de tareas de seguridad.</li>
+                    <li>Respuesta a incidentes (<strong>ransomware, phishing</strong>).</li>
+                    <li>Aplicación de buenas prácticas de seguridad en APIs y aplicaciones web.</li>
+                </ul>
+            </div>
+
+            <!-- Embajada -->
+            <div class="job">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Especialista en TI</div>
+                        <div class="job-company">Embajada de El Salvador en Cuba · La Habana, Cuba</div>
+                    </div>
+                    <div class="job-meta">
+                        <span class="job-period">01/2022 – 09/2024</span>
+                    </div>
+                </div>
+                <ul>
+                    <li>Administración de redes <strong>LAN/WAN</strong>.</li>
+                    <li><strong>Hardening</strong> de servidores y actualización de equipos de red.</li>
+                    <li>Diseño e implementación de planes de recuperación ante desastres.</li>
+                    <li>Capacitación a personal en políticas de seguridad y buenas prácticas.</li>
+                    <li>Administración del sistema de videovigilancia <strong>Hikvision IVMS-4200</strong>.</li>
+                    <li>Automatización de tareas administrativas con <strong>Python</strong>.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ================= EDUCACIÓN ================= -->
+        <section class="section">
+            <h2 class="section-title">Educación</h2>
+
+            <div class="edu-item">
+                <div>
+                    <div class="edu-title">Administración y Seguridad de Redes Informáticas</div>
+                    <div class="edu-sub">Universidad de las Ciencias Informáticas (UCI) · La Habana, Cuba</div>
+                </div>
+                <div class="edu-year">2020</div>
+            </div>
+
+            <div class="edu-item">
+                <div>
+                    <div class="edu-title">Bachillerato</div>
+                    <div class="edu-sub">I.P.U. Batalha de Jigüe · La Habana, Cuba</div>
+                </div>
+                <div class="edu-year">2017</div>
+            </div>
+        </section>
+
+        <!-- ================= CERTIFICACIONES ================= -->
+        <section class="section">
+            <h2 class="section-title">Certificaciones</h2>
+
+            <div class="edu-item">
+                <div>
+                    <div class="edu-title">Linux Essentials</div>
+                    <div class="edu-sub">Linux Professional Institute</div>
+                </div>
+                <div class="edu-year">2024</div>
+            </div>
+
+            <div class="edu-item">
+                <div>
+                    <div class="edu-title">Técnico en Redes</div>
+                    <div class="edu-sub">Fundación Carlos Slim</div>
+                </div>
+                <div class="edu-year">2022</div>
+            </div>
+
+            <div class="edu-item">
+                <div>
+                    <div class="edu-title">Seguridad en Centros de Datos Virtuales</div>
+                    <div class="edu-sub">Segurmitácia</div>
+                </div>
+                <div class="edu-year">2021</div>
+            </div>
+        </section>
+
+        <!-- ================= FOOTER ================= -->
+        <div class="footer">
+            © 2026 Michel Ismark Fleitas González
+        </div>
+    </div>
+</body>
+</html>
